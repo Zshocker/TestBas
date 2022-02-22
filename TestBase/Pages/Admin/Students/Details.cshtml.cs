@@ -23,6 +23,8 @@ namespace TestBase.Pages.Students
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
             if (id == null)
             {
                 return NotFound();

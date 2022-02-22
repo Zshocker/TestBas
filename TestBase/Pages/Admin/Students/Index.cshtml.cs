@@ -21,9 +21,11 @@ namespace TestBase.Pages.Students
 
         public IList<Etudiant> Etudiant { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
             Etudiant = await _context.etudiants.ToListAsync();
+            return Page();
         }
     }
 }

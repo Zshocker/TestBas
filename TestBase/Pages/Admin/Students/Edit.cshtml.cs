@@ -25,6 +25,8 @@ namespace TestBase.Pages.Students
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
+
+            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
             if (id == null)
             {
                 return NotFound();
@@ -43,6 +45,8 @@ namespace TestBase.Pages.Students
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
+
             if (!ModelState.IsValid)
             {
                 return Page();

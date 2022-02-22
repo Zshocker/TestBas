@@ -14,9 +14,9 @@ namespace TestBase.Data
         }
         public DbSet<Etudiant> etudiants { get; set; }
         public DbSet<Utilis> utilis { get; set; }
-        public Utilis? Auth(string login,string pass)
+        public Utilis Auth(string login,string pass)
         {
-            return utilis.First(us => us.login == login && us.passHash == pass);
+            return utilis.FirstOrDefault(us => us.login == login && us.passHash == pass);
         }
     }
 }
