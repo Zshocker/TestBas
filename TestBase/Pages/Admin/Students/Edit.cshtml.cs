@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,6 +12,7 @@ using TestBase.Models;
 
 namespace TestBase.Pages.Students
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         private readonly TestBase.Data.DataContext _context;
@@ -26,7 +28,7 @@ namespace TestBase.Pages.Students
         public async Task<IActionResult> OnGetAsync(int? id)
         {
 
-            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
+           
             if (id == null)
             {
                 return NotFound();
@@ -45,8 +47,7 @@ namespace TestBase.Pages.Students
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
-
+            
             if (!ModelState.IsValid)
             {
                 return Page();

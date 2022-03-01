@@ -26,7 +26,7 @@ namespace TestBase.Pages.Admin
             if (HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin/Students");
             return Page();
         }
-        public async Task<IActionResult> OnPostAsync(string login,string pass)
+        public async Task<IActionResult> OnPostAsync(string login,string pass,string ReturnUrl)
         {
             if (pass == null || login == null) return Redirect("/Admin");
             HashAlgorithm ash = MD5.Create();
@@ -52,7 +52,7 @@ namespace TestBase.Pages.Admin
                 IssuedUtc = DateTimeOffset.UtcNow
             };
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimId), authProperties);
-            return Redirect("/Admin/Students");
+            return Redirect(ReturnUrl==null? "/Admin/Students":ReturnUrl);
         }
       
     }
