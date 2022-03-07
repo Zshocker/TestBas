@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using TestBase.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Serilog;
 
 namespace TestBase
 {
@@ -15,6 +16,9 @@ namespace TestBase
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +33,7 @@ namespace TestBase
             options.Audience = "http://localhost:5001/";
             options.Authority = "http://localhost:5000/";
             }));
+            services.AddControllers();
             services.AddRazorPages();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
@@ -52,6 +57,7 @@ namespace TestBase
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }

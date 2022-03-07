@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using TestBase.Data;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace TestBase
 {
@@ -39,8 +40,11 @@ namespace TestBase
             }
         }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+            Host.CreateDefaultBuilder(args).UseSerilog().ConfigureLogging(logging => 
+            {
+                logging.AddConsole();
+                
+            }).ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
                 });

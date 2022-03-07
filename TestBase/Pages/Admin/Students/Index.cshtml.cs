@@ -19,10 +19,10 @@ namespace TestBase.Pages.Students
         {
             _context = context;
         }
-        public IList<Etudiant> Etudiant { get;set; }
-        public async void OnGetAsync()
+        public IList<Etudiant> Etudiants { get;set; }
+        public void OnGet()
         { 
-            Etudiant = await _context.etudiants.ToListAsync();
+            Etudiants = _context.etudiants.ToList();
         }
     }
 }
