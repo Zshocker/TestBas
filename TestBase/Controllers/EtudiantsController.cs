@@ -28,7 +28,7 @@ namespace TestBase.Controllers
         [HttpGet]
         public List<Etudiant> GetAllEtudiants()
         {
-            _logger.LogInformation("["+DateTime.Now.ToString()+"] : All Etudiants where requested by "+ Request.HttpContext.Connection.RemoteIpAddress);
+            _logger.LogWarning("["+DateTime.Now.ToString()+"] : All Etudiants where requested by "+ Request.HttpContext.Connection.RemoteIpAddress);
             return _context.etudiants.ToList();
         }
         [HttpPost]
@@ -36,17 +36,17 @@ namespace TestBase.Controllers
         {
             if (id == null)
             {
-                _logger.LogInformation("[" + DateTime.Now.ToString() + "] : Fatal Error : request by " + Request.HttpContext.Connection.RemoteIpAddress + " doesn't include id ");
+                _logger.LogCritical("[" + DateTime.Now.ToString() + "] : Fatal Error : request by " + Request.HttpContext.Connection.RemoteIpAddress + " doesn't include id ");
                 return null;
             }
             var etudiant =  _context.etudiants.FirstOrDefault(m => m.id == id);
             if (etudiant == null)
             {
-                _logger.LogInformation("[" + DateTime.Now.ToString() + "] : Error : id requested by " + Request.HttpContext.Connection.RemoteIpAddress+ " was not found ");
+                _logger.LogError("[" + DateTime.Now.ToString() + "] : Error : id requested by " + Request.HttpContext.Connection.RemoteIpAddress+ " was not found ");
 
                 return null;
             }
-            _logger.LogInformation("[" + DateTime.Now.ToString() + "] :Etudiant "+etudiant.ToString()+" was requested by " + Request.HttpContext.Connection.RemoteIpAddress);
+            _logger.LogWarning("[" + DateTime.Now.ToString() + "] :Etudiant "+etudiant.ToString()+" was requested by " + Request.HttpContext.Connection.RemoteIpAddress);
             return etudiant;
         }
         
