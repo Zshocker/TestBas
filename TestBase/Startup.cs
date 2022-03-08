@@ -29,6 +29,9 @@ namespace TestBase
             options.Audience = "http://localhost:5001/";
             options.Authority = "http://localhost:5000/";
             }));
+
+
+            services.AddControllers();
             services.AddRazorPages();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
@@ -52,6 +55,7 @@ namespace TestBase
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
         }
