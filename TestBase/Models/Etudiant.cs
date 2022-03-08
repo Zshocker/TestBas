@@ -18,5 +18,9 @@ namespace TestBase.Models
         public Etudiant()
         {
         }
+        public override string ToString()
+        {
+            return "CNE: "+CNE+ " Name: "+name;
+        }
     }
 }
