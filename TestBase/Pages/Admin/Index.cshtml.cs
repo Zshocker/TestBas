@@ -29,12 +29,8 @@ namespace TestBase.Pages.Admin
         public async Task<IActionResult> OnPostAsync(string login,string pass,string ReturnUrl)
         {
             if (pass == null || login == null) return Redirect("/Admin");
-            HashAlgorithm ash = MD5.Create();
-            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(pass);
-            byte[] hashBytes = ash.ComputeHash(textBytes);
-            string hash = BitConverter
-                .ToString(hashBytes)
-                .Replace("-", String.Empty);
+
+            string hash = hashPassword(pass);
             Utilis utilis = data.Auth(login, hash);
             if (utilis == null) return Redirect("/Admin");
             var claimes = new List<Claim>
@@ -54,6 +50,14 @@ namespace TestBase.Pages.Admin
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimId), authProperties);
             return Redirect(ReturnUrl==null? "/Admin/Students":ReturnUrl);
         }
-      
+        private string hashPassword(string pass)
+        {
+            HashAlgorithm ash = MD5.Create();
+            byte[] textBytes = System.Text.Encoding.UTF8.GetBytes(pass);
+            byte[] hashBytes = ash.ComputeHash(textBytes);
+            return BitConverter
+                .ToString(hashBytes)
+                .Replace("-", String.Empty);
+        }
     }
 }
