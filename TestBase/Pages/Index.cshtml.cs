@@ -23,7 +23,6 @@ namespace TestBase.Pages
 
         public IActionResult OnGet()
         {
-            if (!HttpContext.User.Identity.IsAuthenticated) return Redirect("/Admin");
             return Page();
         }
     }

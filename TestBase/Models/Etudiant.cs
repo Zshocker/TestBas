@@ -10,6 +10,7 @@ namespace TestBase.Models
         public int id { get; set; }
         public string name { get; set; }
         public string CNE { get; set; }
+        public string ImageUrl { get; set; }
         public Etudiant(string nam, string cne)
         {
             name = nam;
